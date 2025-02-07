@@ -1,0 +1,7 @@
+{
+  "name": "dream-journal",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
