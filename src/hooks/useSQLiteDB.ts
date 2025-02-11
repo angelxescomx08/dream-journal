@@ -4,6 +4,7 @@ import {
   SQLiteConnection,
   CapacitorSQLite,
 } from "@capacitor-community/sqlite";
+import { initDatabase } from "../data/init-database";
 
 const useSQLiteDB = () => {
   const db = useRef<SQLiteDBConnection>();
@@ -65,12 +66,7 @@ const useSQLiteDB = () => {
    */
   const initializeTables = async () => {
     performSQLAction(async (db: SQLiteDBConnection | undefined) => {
-      const queryCreateTable = `
-      CREATE TABLE IF NOT EXISTS test (
-      id INTEGER PRIMARY KEY NOT NULL,
-      name TEXT NOT NULL
-      );
-    `;
+      const queryCreateTable = initDatabase();
       const respCT = await db?.execute(queryCreateTable);
       console.log(`res: ${JSON.stringify(respCT)}`);
     });

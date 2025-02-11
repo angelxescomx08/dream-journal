@@ -28,26 +28,39 @@ import '@ionic/react/css/display.css';
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+//import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { DatabaseContext } from './context/database-context';
+import useSQLiteDB from './hooks/useSQLiteDB';
+import { Register } from './pages/Register';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+
+  const {initialized, performSQLAction} = useSQLiteDB();
+
+  return (
+    <IonApp>
+      <DatabaseContext.Provider value={{
+        initialized,
+        performSQLAction
+      } as any}>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/register" />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </DatabaseContext.Provider>
+    </IonApp>
+  )
+};
 
 export default App;
