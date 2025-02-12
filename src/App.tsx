@@ -1,22 +1,22 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { Redirect, Route } from "react-router-dom";
+import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { IonReactRouter } from "@ionic/react-router";
 
 /* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
+import "@ionic/react/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
+import "@ionic/react/css/normalize.css";
+import "@ionic/react/css/structure.css";
+import "@ionic/react/css/typography.css";
 
 /* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
+import "@ionic/react/css/padding.css";
+import "@ionic/react/css/float-elements.css";
+import "@ionic/react/css/text-alignment.css";
+import "@ionic/react/css/text-transformation.css";
+import "@ionic/react/css/flex-utils.css";
+import "@ionic/react/css/display.css";
 
 /**
  * Ionic Dark Mode
@@ -30,46 +30,49 @@ import '@ionic/react/css/display.css';
 //import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
-import './theme/variables.css';
-import { DatabaseContext } from './context/database-context';
-import useSQLiteDB from './hooks/useSQLiteDB';
-import { Register } from './pages/Register';
+import "./theme/variables.css";
+import { DatabaseContext } from "./context/database-context";
+import useSQLiteDB from "./hooks/useSQLiteDB";
+import { Register } from "./pages/Register";
 
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 setupIonicReact();
 
 const App: React.FC = () => {
+	const { initialized, performSQLAction } = useSQLiteDB();
 
-  const {initialized, performSQLAction} = useSQLiteDB();
-
-  return (
-    <IonApp>
-      <DatabaseContext.Provider value={{
-        initialized,
-        performSQLAction
-      } as any}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <IonReactRouter>
-            <IonRouterOutlet>
-              <Route exact path="/register">
-                <Register />
-              </Route>
-              <Route exact path="/">
-                <Redirect to="/register" />
-              </Route>
-            </IonRouterOutlet>
-          </IonReactRouter>
-        </LocalizationProvider>
-      </DatabaseContext.Provider>
-    </IonApp>
-  )
+	return (
+		<IonApp>
+			<DatabaseContext.Provider
+				value={
+					{
+						initialized,
+						performSQLAction,
+					// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+					} as any
+				}
+			>
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<IonReactRouter>
+						<IonRouterOutlet>
+							<Route exact path="/register">
+								<Register />
+							</Route>
+							<Route exact path="/">
+								<Redirect to="/register" />
+							</Route>
+						</IonRouterOutlet>
+					</IonReactRouter>
+				</LocalizationProvider>
+			</DatabaseContext.Provider>
+		</IonApp>
+	);
 };
 
 export default App;
