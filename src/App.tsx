@@ -1,7 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -36,6 +35,14 @@ import { DatabaseContext } from './context/database-context';
 import useSQLiteDB from './hooks/useSQLiteDB';
 import { Register } from './pages/Register';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
+
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -48,16 +55,18 @@ const App: React.FC = () => {
         initialized,
         performSQLAction
       } as any}>
-        <IonReactRouter>
-          <IonRouterOutlet>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/register" />
-            </Route>
-          </IonRouterOutlet>
-        </IonReactRouter>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <IonReactRouter>
+            <IonRouterOutlet>
+              <Route exact path="/register">
+                <Register />
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/register" />
+              </Route>
+            </IonRouterOutlet>
+          </IonReactRouter>
+        </LocalizationProvider>
       </DatabaseContext.Provider>
     </IonApp>
   )
