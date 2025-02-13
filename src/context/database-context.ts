@@ -1,4 +1,4 @@
-import { SQLiteDBConnection } from "@capacitor-community/sqlite";
+import type { SQLiteDBConnection } from "@capacitor-community/sqlite";
 import { createContext } from "react";
 
 export type DatabaseContextType = {

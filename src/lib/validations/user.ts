@@ -2,7 +2,7 @@ import z from "zod";
 import { gendersSchema } from "./genders";
 
 export const userSchema = z.object({
-	id: z.string().uuid("El campo id debe ser un UUID v4"),
+	user_id: z.string().uuid("El campo id debe ser un UUID v4"),
 	name: z
 		.string()
 		.min(2, "La longitud mínima de un nombre es de 2 caracteres")

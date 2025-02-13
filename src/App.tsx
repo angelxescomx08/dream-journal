@@ -41,8 +41,11 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 
 setupIonicReact();
+const queryClient = new QueryClient();
 
 const App: React.FC = () => {
 	const { initialized, performSQLAction } = useSQLiteDB();
@@ -54,22 +57,25 @@ const App: React.FC = () => {
 					{
 						initialized,
 						performSQLAction,
-					// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+						// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 					} as any
 				}
 			>
-				<LocalizationProvider dateAdapter={AdapterDayjs}>
-					<IonReactRouter>
-						<IonRouterOutlet>
-							<Route exact path="/register">
-								<Register />
-							</Route>
-							<Route exact path="/">
-								<Redirect to="/register" />
-							</Route>
-						</IonRouterOutlet>
-					</IonReactRouter>
-				</LocalizationProvider>
+				<QueryClientProvider client={queryClient}>
+					<LocalizationProvider dateAdapter={AdapterDayjs}>
+						<IonReactRouter>
+							<IonRouterOutlet>
+								<Route exact path="/register">
+									<Register />
+								</Route>
+								<Route exact path="/">
+									<Redirect to="/register" />
+								</Route>
+							</IonRouterOutlet>
+						</IonReactRouter>
+					</LocalizationProvider>
+					<Toaster />
+				</QueryClientProvider>
 			</DatabaseContext.Provider>
 		</IonApp>
 	);
