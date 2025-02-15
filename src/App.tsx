@@ -43,6 +43,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import Home from "./pages/Home";
 
 setupIonicReact();
 const queryClient = new QueryClient();
@@ -57,8 +58,7 @@ const App: React.FC = () => {
 					{
 						initialized,
 						performSQLAction,
-						// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-					} as any
+					}
 				}
 			>
 				<QueryClientProvider client={queryClient}>
@@ -67,6 +67,9 @@ const App: React.FC = () => {
 							<IonRouterOutlet>
 								<Route exact path="/register">
 									<Register />
+								</Route>
+								<Route exact path="/home">
+									<Home />
 								</Route>
 								<Route exact path="/">
 									<Redirect to="/register" />

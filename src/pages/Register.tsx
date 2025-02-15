@@ -4,6 +4,7 @@ import {
 	IonPage,
 	IonTitle,
 	IonToolbar,
+	useIonRouter,
 } from "@ionic/react";
 import {
 	Button,
@@ -17,7 +18,11 @@ import {
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useForm } from "react-hook-form";
-import { type CreateUser, createUserSchema } from "../lib/validations/user";
+import {
+	type CreateUser,
+	createUserSchema,
+	type User,
+} from "../lib/validations/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Gender } from "../lib/validations/genders";
 import { useMutation } from "@tanstack/react-query";
@@ -27,6 +32,7 @@ import toast from "react-hot-toast";
 
 export const Register = () => {
 	const { performSQLAction, initialized } = useContext(DatabaseContext);
+	const router = useIonRouter();
 
 	const form = useForm<CreateUser>({
 		resolver: zodResolver(createUserSchema),
@@ -52,10 +58,6 @@ export const Register = () => {
 					birthday.toISOString(),
 					gender,
 				]);
-
-				console.log({
-					result,
-				});
 			});
 			return result;
 		},
@@ -82,6 +84,14 @@ export const Register = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
+		performSQLAction(async (db) => {
+			const command = "SELECT * FROM users";
+			const result = await db?.query(command);
+			const users: User[] | undefined = result?.values;
+			if (users && users.length > 0) {
+				router.push("/home");
+			}
+		});
 		form.setValue("user_id", crypto.randomUUID());
 	}, []);
 

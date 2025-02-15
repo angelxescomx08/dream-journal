@@ -3,9 +3,9 @@ import { createContext } from "react";
 
 export type DatabaseContextType = {
   performSQLAction: (
-    action: (db: SQLiteDBConnection | undefined) => Promise<void>,
+    action: (db: SQLiteDBConnection | undefined) => Promise<unknown>,
     cleanup?: () => Promise<void>
-  ) => Promise<void>;
+  ) => Promise<unknown>;
   initialized: boolean;
 };
 
