@@ -84,14 +84,6 @@ export const Register = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		performSQLAction(async (db) => {
-			const command = "SELECT * FROM users";
-			const result = await db?.query(command);
-			const users: User[] | undefined = result?.values;
-			if (users && users.length > 0) {
-				router.push("/home");
-			}
-		});
 		form.setValue("user_id", crypto.randomUUID());
 	}, []);
 

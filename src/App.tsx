@@ -44,6 +44,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
+import { PublicRoute } from "./components/routes/PublicRoute";
+import { PrivateRoute } from "./components/routes/PrivateRoute";
 
 setupIonicReact();
 const queryClient = new QueryClient();
@@ -54,22 +56,24 @@ const App: React.FC = () => {
 	return (
 		<IonApp>
 			<DatabaseContext.Provider
-				value={
-					{
-						initialized,
-						performSQLAction,
-					}
-				}
+				value={{
+					initialized,
+					performSQLAction,
+				}}
 			>
 				<QueryClientProvider client={queryClient}>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<IonReactRouter>
 							<IonRouterOutlet>
 								<Route exact path="/register">
-									<Register />
+									<PublicRoute>
+										<Register />
+									</PublicRoute>
 								</Route>
 								<Route exact path="/home">
-									<Home />
+									<PrivateRoute>
+										<Home />
+									</PrivateRoute>
 								</Route>
 								<Route exact path="/">
 									<Redirect to="/register" />
