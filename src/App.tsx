@@ -43,13 +43,20 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import Home from "./pages/Home";
 import { PublicRoute } from "./components/routes/PublicRoute";
-import { PrivateRoute } from "./components/routes/PrivateRoute";
 import MainTabs from "./components/routes/MainTabs";
 
 setupIonicReact();
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			retry: 1,
+			// biome-ignore lint/style/useNumberNamespace: <explanation>
+			staleTime: Infinity
+		}
+	}
+});
 
 const App: React.FC = () => {
 	const { initialized, performSQLAction } = useSQLiteDB();
