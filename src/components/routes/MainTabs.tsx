@@ -10,7 +10,14 @@ import { IonReactRouter } from "@ionic/react-router";
 
 import { Route, Redirect } from "react-router";
 
-import { radio, library, search, home, barChart, pricetag } from "ionicons/icons";
+import {
+	radio,
+	library,
+	search,
+	home,
+	barChart,
+	pricetag,
+} from "ionicons/icons";
 import Home from "../../pages/Home";
 
 function MainTabs() {

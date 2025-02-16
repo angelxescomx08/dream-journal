@@ -7,6 +7,7 @@ import {
 } from "@ionic/react";
 import "./Home.css";
 import { useDreams } from "../hooks/useDreams";
+import { Button } from "@mui/material";
 
 const Home: React.FC = () => {
 	const { dreams } = useDreams();
@@ -33,7 +34,10 @@ const Home: React.FC = () => {
 		<IonPage>
 			<IonHeader>
 				<IonToolbar>
-					<IonTitle className="px-3">Sueños</IonTitle>
+					<div className="flex items-center justify-between">
+						<IonTitle className="px-3">Sueños</IonTitle>
+						<Button>Registrar sueño</Button>
+					</div>
 				</IonToolbar>
 			</IonHeader>
 			<IonContent fullscreen>

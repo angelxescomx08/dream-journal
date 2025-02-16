@@ -53,9 +53,9 @@ const queryClient = new QueryClient({
 			refetchOnWindowFocus: false,
 			retry: 1,
 			// biome-ignore lint/style/useNumberNamespace: <explanation>
-			staleTime: Infinity
-		}
-	}
+			staleTime: Infinity,
+		},
+	},
 });
 
 const App: React.FC = () => {
