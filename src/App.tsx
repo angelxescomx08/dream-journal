@@ -46,6 +46,7 @@ import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
 import { PublicRoute } from "./components/routes/PublicRoute";
 import { PrivateRoute } from "./components/routes/PrivateRoute";
+import MainTabs from "./components/routes/MainTabs";
 
 setupIonicReact();
 const queryClient = new QueryClient();
@@ -70,11 +71,7 @@ const App: React.FC = () => {
 										<Register />
 									</PublicRoute>
 								</Route>
-								<Route exact path="/home">
-									<PrivateRoute>
-										<Home />
-									</PrivateRoute>
-								</Route>
+								<Route exact path="/home" render={() => <MainTabs />} />
 								<Route exact path="/">
 									<Redirect to="/register" />
 								</Route>
