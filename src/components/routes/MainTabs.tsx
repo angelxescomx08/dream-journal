@@ -7,8 +7,7 @@ import {
 	IonRouterOutlet,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-
-import { Route, Redirect } from "react-router";
+import { Redirect, Route } from "react-router-dom";
 
 import {
 	radio,
@@ -18,20 +17,15 @@ import {
 	barChart,
 	pricetag,
 } from "ionicons/icons";
-import Home from "../../pages/Home";
+import HomeRouter from "./home/HomeRouter";
 
 function MainTabs() {
 	return (
 		<IonReactRouter>
 			<IonTabs>
 				<IonRouterOutlet>
-					<Redirect exact path="/" to="/home" />
-					{/*
-          Use the render method to reduce the number of renders your component will have due to a route change.
-
-          Use the component prop when your component depends on the RouterComponentProps passed in automatically.
-        */}
-					<Route path="/home" render={() => <Home />} exact={true} />
+					<Route path="/home/*" render={() => <HomeRouter />} />
+					<Route path="/" render={() => <HomeRouter />} />
 				</IonRouterOutlet>
 
 				<IonTabBar slot="bottom">
@@ -59,4 +53,5 @@ function MainTabs() {
 		</IonReactRouter>
 	);
 }
+
 export default MainTabs;

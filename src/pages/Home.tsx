@@ -1,16 +1,12 @@
-import {
-	IonContent,
-	IonHeader,
-	IonPage,
-	IonTitle,
-	IonToolbar,
-} from "@ionic/react";
+import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
 import "./Home.css";
 import { useDreams } from "../hooks/useDreams";
 import { Button } from "@mui/material";
+import { useHistory } from "react-router";
 
 const Home: React.FC = () => {
 	const { dreams } = useDreams();
+	const router = useHistory();
 
 	const showDreams = (dreams: ReturnType<typeof useDreams>["dreams"]) => {
 		if (dreams.isError) {
@@ -35,8 +31,10 @@ const Home: React.FC = () => {
 			<IonHeader>
 				<IonToolbar>
 					<div className="flex items-center justify-between">
-						<IonTitle className="px-3">Sueños</IonTitle>
-						<Button>Registrar sueño</Button>
+						<h4 className="px-3 text-base">Sueños</h4>
+						<Button onClick={() => router.push("/home/create-dream")}>
+							Registrar sueño
+						</Button>
 					</div>
 				</IonToolbar>
 			</IonHeader>
