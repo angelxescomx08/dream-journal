@@ -13,7 +13,6 @@ const CreateDream: React.FC = () => {
 				<IonToolbar>
 					<div className="flex items-center justify-between">
 						<h4 className="px-3 text-base">Sueños</h4>
-						<Button>Registrar sueño</Button>
 					</div>
 				</IonToolbar>
 			</IonHeader>

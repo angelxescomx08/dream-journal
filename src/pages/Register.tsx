@@ -62,6 +62,7 @@ export const Register = () => {
 			return result;
 		},
 		onSuccess: () => {
+			router.push("/home");
 			toast.success("Se han registrado tus datos correctamente");
 		},
 		onError: (error) => {

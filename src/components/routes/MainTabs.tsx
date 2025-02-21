@@ -7,16 +7,9 @@ import {
 	IonRouterOutlet,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 
-import {
-	radio,
-	library,
-	search,
-	home,
-	barChart,
-	pricetag,
-} from "ionicons/icons";
+import { search, home, barChart, pricetag } from "ionicons/icons";
 import HomeRouter from "./home/HomeRouter";
 
 function MainTabs() {
@@ -24,7 +17,7 @@ function MainTabs() {
 		<IonReactRouter>
 			<IonTabs>
 				<IonRouterOutlet>
-					<Route path="/home/*" render={() => <HomeRouter />} />
+					<Route exact path="/home" render={() => <HomeRouter />} />
 					<Route path="/" render={() => <HomeRouter />} />
 				</IonRouterOutlet>
 

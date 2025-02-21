@@ -6,9 +6,8 @@ import Home from "../../../pages/Home";
 const HomeRouter: React.FC = () => {
 	return (
 		<IonRouterOutlet>
-			<Route path="/home/create-dream" component={CreateDream} exact />
 			<Route path="/home" component={Home} exact />
-			<Route path="*" component={Home} />
+			<Route path="/home/create-dream" component={CreateDream} />
 		</IonRouterOutlet>
 	);
 };
