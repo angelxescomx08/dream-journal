@@ -79,7 +79,7 @@ const App: React.FC = () => {
 									</PublicRoute>
 								</Route>
 								<Route exact path="/home" render={() => <MainTabs />} />
-								<Redirect exact from="/" to="/dashboard" />
+								<Redirect exact from="/" to="/register" />
 							</IonRouterOutlet>
 						</IonReactRouter>
 					</LocalizationProvider>

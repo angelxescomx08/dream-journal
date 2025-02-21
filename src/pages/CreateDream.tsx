@@ -3,9 +3,10 @@ import "./Home.css";
 import { useDreams } from "../hooks/useDreams";
 import { Button } from "@mui/material";
 import { useHistory } from "react-router";
+import { useUser } from "../modules/users/hooks/useUser";
 
 const CreateDream: React.FC = () => {
-	const { dreams } = useDreams();
+	const { user } = useUser();
 
 	return (
 		<IonPage>

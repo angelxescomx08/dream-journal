@@ -18,11 +18,7 @@ import {
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useForm } from "react-hook-form";
-import {
-	type CreateUser,
-	createUserSchema,
-	type User,
-} from "../lib/validations/user";
+import { type CreateUser, createUserSchema } from "../lib/validations/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Gender } from "../lib/validations/genders";
 import { useMutation } from "@tanstack/react-query";
