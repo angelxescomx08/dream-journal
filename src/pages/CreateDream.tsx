@@ -1,9 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
 import "./Home.css";
-import { useDreams } from "../hooks/useDreams";
-import { Button } from "@mui/material";
-import { useHistory } from "react-router";
 import { useUser } from "../modules/users/hooks/useUser";
+import { TextField } from "@mui/material";
 
 const CreateDream: React.FC = () => {
 	const { user } = useUser();
@@ -18,7 +16,26 @@ const CreateDream: React.FC = () => {
 				</IonToolbar>
 			</IonHeader>
 			<IonContent fullscreen>
-				<div className="grid grid-cols-12 p-5 gap-4"></div>
+				<div className="grid grid-cols-12 p-5 gap-4">
+					<div className="col-span-12 border-b-black">
+						<TextField
+							className="w-full"
+							label="Título del sueño"
+							variant="filled"
+							// {...form.register("name")}
+						/>
+					</div>
+					<div className="col-span-12 border-b-black">
+						<TextField
+							className="w-full"
+							label="Contenido del sueño"
+							variant="filled"
+							multiline
+							rows={3}
+							// {...form.register("name")}
+						/>
+					</div>
+				</div>
 			</IonContent>
 		</IonPage>
 	);
