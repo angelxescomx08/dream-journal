@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { useDreams } from "../modules/dreams/hooks/useDreams";
 
 import "./Home.css";
+import { DreamCard } from "../modules/dreams/components/DreamCard";
 
 const Home: React.FC = () => {
 	const { dreams } = useDreams();
@@ -21,8 +22,11 @@ const Home: React.FC = () => {
 		}
 		return dreams?.data?.map((dream) => (
 			<div className="col-span-12" key={dream.dream_id}>
-				<h1>{dream.title}</h1>
-				<p>{dream.content}</p>
+				<DreamCard
+					title={dream.title}
+					content={dream.content}
+					created_at={dream.created_at}
+				/>
 			</div>
 		));
 	};
