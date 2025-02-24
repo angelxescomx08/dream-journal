@@ -44,7 +44,7 @@ const Home: React.FC = () => {
 				</IonToolbar>
 			</IonHeader>
 			<IonContent fullscreen>
-				<div className="grid grid-cols-12 p-5 gap-4">{showDreams(dreams)}</div>
+				<div className="grid grid-cols-12 gap-4">{showDreams(dreams)}</div>
 			</IonContent>
 		</IonPage>
 	);
