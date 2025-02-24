@@ -1,10 +1,11 @@
 import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
+import { Button, TextField } from "@mui/material";
+
 import "./Home.css";
-import { useUser } from "../modules/users/hooks/useUser";
-import { TextField } from "@mui/material";
+import { useCreateDream } from "../modules/dreams/hooks/useCreateDream";
 
 const CreateDream: React.FC = () => {
-	const { user } = useUser();
+	const { form, createDreamMutation, onSubmit } = useCreateDream();
 
 	return (
 		<IonPage>
@@ -16,13 +17,18 @@ const CreateDream: React.FC = () => {
 				</IonToolbar>
 			</IonHeader>
 			<IonContent fullscreen>
-				<div className="grid grid-cols-12 p-5 gap-4">
+				<form
+					className="grid grid-cols-12 p-5 gap-4"
+					onSubmit={form.handleSubmit(onSubmit)}
+				>
 					<div className="col-span-12 border-b-black">
 						<TextField
 							className="w-full"
 							label="Título del sueño"
 							variant="filled"
-							// {...form.register("name")}
+							{...form.register("title")}
+							error={!!form.formState.errors.title?.message}
+							helperText={form.formState.errors.title?.message}
 						/>
 					</div>
 					<div className="col-span-12 border-b-black">
@@ -32,10 +38,22 @@ const CreateDream: React.FC = () => {
 							variant="filled"
 							multiline
 							rows={3}
-							// {...form.register("name")}
+							{...form.register("content")}
+							error={!!form.formState.errors.content?.message}
+							helperText={form.formState.errors.content?.message}
 						/>
 					</div>
-				</div>
+					<div className="col-span-12 border-b-black">
+						<Button
+							variant="contained"
+							className="w-full"
+							type="submit"
+							disabled={createDreamMutation.isPending}
+						>
+							{createDreamMutation.isPending ? "Creando..." : "Crear"}
+						</Button>
+					</div>
+				</form>
 			</IonContent>
 		</IonPage>
 	);
