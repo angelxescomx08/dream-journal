@@ -1,10 +1,12 @@
 import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
-import { Button } from "@mui/material";
+import { Alert, Button } from "@mui/material";
 import { useHistory } from "react-router";
 import { useDreams } from "../modules/dreams/hooks/useDreams";
 
-import "./Home.css";
 import { DreamCard } from "../modules/dreams/components/DreamCard";
+import { CardDreamSkeleton } from "../modules/dreams/components/skeletons/CardDreamSkeleton";
+
+import "./Home.css";
 
 const Home: React.FC = () => {
 	const { dreams } = useDreams();
@@ -12,13 +14,30 @@ const Home: React.FC = () => {
 
 	const showDreams = (dreams: ReturnType<typeof useDreams>["dreams"]) => {
 		if (dreams.isError) {
-			return <div className="col-span-12">Error</div>;
+			return (
+				<div className="col-span-12">
+					<Alert severity="error">
+						Ha ocurrido un error al cargar los sueños
+					</Alert>
+				</div>
+			);
 		}
 		if (dreams.isFetching) {
-			return <div className="col-span-12">Loading...</div>;
+			return Array.from({ length: 10 }).map((_, index) => (
+				<div
+					className="col-span-12"
+					key={`card-dream-skeleton-${crypto.randomUUID()}`}
+				>
+					<CardDreamSkeleton />
+				</div>
+			));
 		}
 		if (dreams.data?.length === 0) {
-			return <div className="col-span-12">No hay sueños</div>;
+			return (
+				<div className="col-span-12">
+					<Alert severity="info">No hay sueños registrados aún</Alert>
+				</div>
+			);
 		}
 		return dreams?.data?.map((dream) => (
 			<div className="col-span-12" key={dream.dream_id}>
