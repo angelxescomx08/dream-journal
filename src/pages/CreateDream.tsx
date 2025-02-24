@@ -5,7 +5,7 @@ import "./Home.css";
 import { useCreateDream } from "../modules/dreams/hooks/useCreateDream";
 
 const CreateDream: React.FC = () => {
-	const { form, createDreamMutation, onSubmit } = useCreateDream();
+	const { form, createDreamMutation, onSubmit, onReject } = useCreateDream();
 
 	return (
 		<IonPage>
@@ -19,7 +19,7 @@ const CreateDream: React.FC = () => {
 			<IonContent fullscreen>
 				<form
 					className="grid grid-cols-12 p-5 gap-4"
-					onSubmit={form.handleSubmit(onSubmit)}
+					onSubmit={form.handleSubmit(onSubmit, onReject)}
 				>
 					<div className="col-span-12 border-b-black">
 						<TextField
@@ -37,7 +37,8 @@ const CreateDream: React.FC = () => {
 							label="Contenido del sueño"
 							variant="filled"
 							multiline
-							rows={3}
+							minRows={3}
+							maxRows={14}
 							{...form.register("content")}
 							error={!!form.formState.errors.content?.message}
 							helperText={form.formState.errors.content?.message}

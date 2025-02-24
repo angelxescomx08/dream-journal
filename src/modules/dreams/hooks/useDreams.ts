@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { DatabaseContext } from "../context/database-context";
 import { useQuery } from "@tanstack/react-query";
-import type { Dream } from "../lib/validations/dreams";
+import { DatabaseContext } from "../../../context/database-context";
+import type { Dream } from "../../../lib/validations/dreams";
 
 export const useDreams = () => {
   const { performSQLAction, initialized } = useContext(DatabaseContext);
@@ -14,8 +14,8 @@ export const useDreams = () => {
         const result = await db?.query(command);
         const dreams: Dream[] | undefined = result?.values;
         return dreams;
-      })) as Dream[] | undefined;
-      return data;
+      })) as Dream[];
+      return data || [];
     },
     enabled: initialized,
   });

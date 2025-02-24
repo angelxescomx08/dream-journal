@@ -9,12 +9,12 @@ export const useUser = () => {
   const user = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
-      const result = await performSQLAction(async (db) => {
+      const result = (await performSQLAction(async (db) => {
         const command = "SELECT * FROM users LIMIT 1";
         const result = await db?.query(command);
         const user: User = (result?.values?.at(0) as User) || null;
         return user;
-      });
+      })) as User;
       return result;
     },
     enabled: initialized,

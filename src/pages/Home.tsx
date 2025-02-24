@@ -1,8 +1,9 @@
 import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
-import "./Home.css";
-import { useDreams } from "../hooks/useDreams";
 import { Button } from "@mui/material";
 import { useHistory } from "react-router";
+import { useDreams } from "../modules/dreams/hooks/useDreams";
+
+import "./Home.css";
 
 const Home: React.FC = () => {
 	const { dreams } = useDreams();
@@ -18,7 +19,7 @@ const Home: React.FC = () => {
 		if (dreams.data?.length === 0) {
 			return <div className="col-span-12">No hay sueños</div>;
 		}
-		return dreams.data?.map((dream) => (
+		return dreams?.data?.map((dream) => (
 			<div className="col-span-12" key={dream.dream_id}>
 				<h1>{dream.title}</h1>
 				<p>{dream.content}</p>

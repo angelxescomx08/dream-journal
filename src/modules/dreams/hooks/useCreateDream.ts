@@ -1,9 +1,9 @@
 import { useUser } from "../../users/hooks/useUser";
 import { useHistory } from "react-router";
-import { useForm } from "react-hook-form";
-import { Dream, dreamSchema } from "../../../lib/validations/dreams";
+import { type FieldErrors, useForm } from "react-hook-form";
+import { type Dream, dreamSchema } from "../../../lib/validations/dreams";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useSQLiteDB from "../../../hooks/useSQLiteDB";
 
@@ -11,11 +11,12 @@ export const useCreateDream = () => {
   const { initialized, performSQLAction } = useSQLiteDB();
   const { user } = useUser();
   const router = useHistory();
+  const queryClient = useQueryClient();
 
   const form = useForm<Dream>({
     resolver: zodResolver(dreamSchema),
     defaultValues: {
-      user_id: "",
+      user_id: user.data?.user_id ?? "",
       title: "",
       content: "",
       created_at: new Date().toISOString(),
@@ -38,6 +39,10 @@ export const useCreateDream = () => {
           dream_id,
         ]);
       });
+      queryClient.invalidateQueries({
+        queryKey: ["dreams"],
+        exact: false,
+      });
       return result;
     },
     onSuccess: () => {
@@ -54,9 +59,15 @@ export const useCreateDream = () => {
     await createDreamMutation.mutateAsync(data);
   };
 
+  const onReject = (errors: FieldErrors<Dream>) => {
+    console.log(errors);
+    toast.error("Error al crear sueño");
+  };
+
   return {
     form,
     createDreamMutation,
     onSubmit,
+    onReject,
   };
 };
