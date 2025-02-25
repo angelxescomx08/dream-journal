@@ -1,11 +1,15 @@
 import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
-import { Button, TextField } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 
 import "./Home.css";
 import { useCreateDream } from "../modules/dreams/hooks/useCreateDream";
+import { type TagOption, TagsInput } from "../components/TagsInput";
+import { useState } from "react";
 
 const CreateDream: React.FC = () => {
 	const { form, createDreamMutation, onSubmit, onReject } = useCreateDream();
+
+	const [tags, setTags] = useState<TagOption[]>([]);
 
 	return (
 		<IonPage>
@@ -29,6 +33,17 @@ const CreateDream: React.FC = () => {
 							{...form.register("title")}
 							error={!!form.formState.errors.title?.message}
 							helperText={form.formState.errors.title?.message}
+						/>
+					</div>
+					<div className="col-span-12 border-b-black">
+						<TagsInput
+							options={[
+								{ label: "Favoritos", value: "favorites" },
+								{ label: "Ideas", value: "ideas" },
+								{ label: "Trabajo", value: "work" },
+							]}
+							value={tags}
+							onChange={setTags}
 						/>
 					</div>
 					<div className="col-span-12 border-b-black">
